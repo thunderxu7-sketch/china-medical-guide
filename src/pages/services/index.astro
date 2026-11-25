@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { services } from "../../data/services";
+import { serviceDetails, getServicePricing } from "../../data/service-details";
+import { categories, categoryOrder } from "../../features/services/categories";
+import ServiceIcon from "../../features/services/ServiceIcon.astro";
+import ServiceCta from "../../features/services/ServiceCta.astro";
+import "../../features/services/services.css";
+
+const description = "Explore surgery, eye care, orthopedics and traditional Chinese medicine. Compare published reference prices before requesting a personal quote.";
+const planning = [
+  { title: "Compare like for like", text: "Check the unit before comparing costs. Eye procedures may be priced per eye, consultations per visit and herbal deliveries per month." },
+  { title: "Allow time for reviews", text: "A clinic appointment, an inpatient stay and recovery at home have different timelines. Ask which reviews need to happen in China." },
+  { title: "Get a written estimate", text: "The published references on these pages come from an external provider. Ask the treating team for a current itemised quote." },
+];
+---
+<BaseLayout title="Medical Services in China | China Medical Guide" description={description}>
+  <div class="svc-pages">
+    <header class="svc-hero">
+      <div class="svc-container">
+        <h1>Our Services</h1>
+        <p>{description}</p>
+      </div>
+    </header>
+    {categoryOrder.map((category) => {
+      const group = categories[category];
+      return (
+        <section class="svc-category" id={category} data-category={category} aria-labelledby={`heading-${category}`}>
+          <div class="svc-container">
+            <header class="svc-group-heading">
+              <div class="svc-group-title"><ServiceIcon name={group.icon} size={32} /><h2 id={`heading-${category}`}>{group.name}</h2></div>
+              <p>{group.description}</p>
+            </header>
+            <div class="svc-grid">
+              {services.filter((service) => service.category === category).map((service) => {
+                const detail = serviceDetails[service.slug];
+                const pricing = getServicePricing(service.slug);
+                return (
+                  <article class="svc-card">
+                    <div class="svc-card-top">
+                      <ServiceIcon name={service.slug === "cardiac-surgery" ? "heart" : group.icon} size={40} />
+                      <span class="svc-price-pill" title={`${pricing.label}: ${pricing.text}`}>{pricing.shortText}</span>
+                    </div>
+                    <h3>{service.name}</h3>
+                    <p>{detail.summary}</p>
+                    <a class="svc-card-link" href={`/services/${service.slug}`} aria-label={`Learn more about ${service.name}`}>Learn more</a>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      );
+    })}
+    <section class="svc-block svc-planning">
+      <div class="svc-container">
+        <h2>Planning your care</h2>
+        <div class="svc-three">
+          {planning.map((item) => <article class="svc-note-card"><h3>{item.title}</h3><p>{item.text}</p></article>)}
+        </div>
+      </div>
+    </section>
+    <ServiceCta href="/consultation" title="Ask about a treatment" description="Choose a service and tell the team what you would like to know about costs, appointments or your stay." action="Get a consultation" />
+  </div>
+</BaseLayout>

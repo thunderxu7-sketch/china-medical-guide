@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { services } from "../../data/services";
+import { getServicePricing, serviceDetails } from "../../data/service-details";
+import { categories } from "../../features/services/categories";
+import ServiceIcon from "../../features/services/ServiceIcon.astro";
+import ServiceCta from "../../features/services/ServiceCta.astro";
+import "../../features/services/services.css";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { service: service.slug }, props: { service } }));
+}
+const { service } = Astro.props;
+const detail = serviceDetails[service.slug];
+const pricing = getServicePricing(service.slug);
+const group = categories[service.category];
+const consultation = `/consultation?service=${service.slug}`;
+const source = `https://cndocteam.com/services/${service.slug}`;
+const title = service.slug === "cataract-treatment" ? "Cataract Treatment and Intraocular Lens Options" : service.name;
+---
+<BaseLayout title={`${service.name} in China | China Medical Guide`} description={detail.summary}>
+  <div class="svc-pages">
+    <header class="svc-hero">
+      <div class="svc-container">
+        <a class="svc-back" href={`/services#${service.category}`}><ServiceIcon name="chevron" size={16} />Back to services</a>
+        <h1>{title}</h1>
+        <p>{detail.summary}</p>
+        <a href={`/services#${service.category}`} class="svc-category-tag"><ServiceIcon name={group.icon} size={16} />{group.name}</a>
+      </div>
+    </header>
+    <section class="svc-facts" aria-label="Cost and timing">
+      <div class="svc-container">
+        <dl class="svc-fact-grid">
+          <div class="svc-fact"><dt>{pricing.label} · USD</dt><dd>{pricing.text}</dd></div>
+          <div class="svc-fact"><dt>Time in China</dt><dd>{detail.stayInChina}</dd></div>
+          <div class="svc-fact"><dt>{service.category === "tcm" ? "Program or session length" : "Reference recovery window"}</dt><dd>{detail.recovery}</dd></div>
+          <div class="svc-fact"><dt>Care setting</dt><dd>{detail.setting}</dd></div>
+        </dl>
+        <p class="svc-source">
+          {pricing.source ? "Reference prices and timelines" : "Reference timelines"} come from CNDocTeam’s listing, checked <time datetime="2026-11-25">25 November 2026</time>. Confirm your own quote and itinerary with the treating team.
+          <a href={source}> View the published listing</a>
+        </p>
+      </div>
+    </section>
+    <section class="svc-detail-block svc-shaded">
+      <div class="svc-container">
+        <h2>Service overview</h2>
+        <p class="svc-overview">{detail.overview}</p>
+      </div>
+    </section>
+    <section class="svc-detail-block">
+      <div class="svc-container">
+        <h2>What to prepare</h2>
+        <ul class="svc-prepare">
+          {detail.prepare.map((item) => <li><ServiceIcon name="check" /><span>{item}</span></li>)}
+        </ul>
+      </div>
+    </section>
+    <section class="svc-detail-block svc-shaded">
+      <div class="svc-container">
+        <h2>Questions for the care team</h2>
+        <ol class="svc-questions">
+          {detail.questions.map((item) => <li>{item}</li>)}
+        </ol>
+      </div>
+    </section>
+    <section class="svc-detail-block">
+      <div class="svc-container">
+        <h2>Planning follow-up</h2>
+        <div class="svc-follow"><ServiceIcon name="clock" size={22} /><p>{detail.followUp}</p></div>
+      </div>
+    </section>
+    <ServiceCta href={consultation} title="Request a personal estimate" description={`Send an enquiry about ${service.name.toLowerCase()} and ask the team to confirm availability, appointment dates and the items included in your quote.`} action="Get a consultation" />
+  </div>
+</BaseLayout>
