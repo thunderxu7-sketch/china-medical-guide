@@ -1,0 +1,176 @@
+.consult-page {
+  color: var(--foreground, #17191c);
+  background: var(--background, #fcfcfc);
+}
+
+.consult-width {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.consult-hero {
+  padding-block: 4rem;
+  background: linear-gradient(100deg, #e3e9f0, #f2ecea);
+}
+
+.consult-hero h1 {
+  margin: 0 0 1rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.045em;
+}
+
+.consult-intro {
+  max-width: 42rem;
+  margin-bottom: 1rem;
+  color: var(--muted-foreground, #46505b);
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+
+.consult-shortcut {
+  margin-bottom: 2rem;
+  color: #2b4e76;
+  font-size: .875rem;
+  line-height: 1.625;
+}
+
+.consult-shortcut a { font-weight: 650; }
+.consult-page a:hover { text-decoration: underline; }
+
+.consult-content {
+  display: grid;
+  align-items: start;
+  gap: 2rem;
+  padding-block: 4rem;
+}
+
+.consult-card {
+  min-width: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border, #dedfe1);
+  border-radius: 1rem;
+  background: var(--card, #fafafa);
+  box-shadow: 0 1px 3px rgb(15 23 42 / .09);
+}
+
+.consult-card h2 {
+  margin: 0 0 1.875rem;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.35;
+  letter-spacing: -.018em;
+}
+
+.consult-form-card fieldset {
+  display: grid;
+  min-width: 0;
+  gap: 1.5rem;
+  border: 0;
+  padding: 0;
+}
+
+.consult-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .5rem;
+}
+
+.consult-field label, .consult-contact h3 {
+  font-size: .875rem;
+  line-height: 1.35;
+  font-weight: 550;
+}
+
+.consult-field :is(input, textarea, select) {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.35rem;
+  padding: .5rem .75rem;
+  color: var(--foreground, #17191c);
+  border: 1px solid var(--border, #dedfe1);
+  border-radius: .6rem;
+  background: var(--card, #fafafa);
+  box-shadow: 0 1px 3px rgb(15 23 42 / .06);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.consult-field ::placeholder { color: var(--muted-foreground, #46505b); opacity: 1; }
+.consult-field textarea { min-height: 4rem; resize: vertical; }
+.consult-field :is(input, textarea, select):user-invalid { border-color: #ae4437; }
+
+.consult-page :is(input, select, textarea, a, button):focus-visible {
+  outline: 2px solid var(--primary, #083d7b);
+  outline-offset: 3px;
+}
+
+.consult-field input { scroll-margin-top: 6rem; }
+.consult-select { position: relative; display: inline-flex; max-width: 100%; }
+.consult-select select {
+  appearance: none;
+  field-sizing: content;
+  max-width: 100%;
+  padding-right: 2.1rem;
+  color: var(--muted-foreground, #46505b);
+}
+
+.consult-select::after {
+  position: absolute;
+  top: calc(50% - 4px);
+  right: .9rem;
+  width: .4rem;
+  height: .4rem;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.consult-privacy, .consult-notice, .consult-alternate { font-size: .875rem; line-height: 1.5; color: var(--muted-foreground, #46505b); }
+.consult-privacy a, .consult-alternate a { color: var(--primary, #083d7b); text-decoration: underline; }
+.consult-privacy { margin-block: -.4rem -.75rem; }
+.consult-submit {
+  min-height: 2.625rem;
+  width: 100%;
+  padding: .55rem 1.1rem;
+  border-radius: .6rem;
+  background: var(--primary, #083d7b);
+  color: white;
+  font-weight: 600;
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.consult-submit:hover { filter: brightness(1.1); }
+.consult-submit:disabled { cursor: wait; opacity: .7; }
+.consult-feedback:not(:empty), .consult-notice, .consult-alternate { margin-top: 1rem; }
+.consult-feedback:not(:empty) { padding: .8rem 1rem; border: 1px solid; border-radius: .65rem; font-size: .9375rem; line-height: 1.5; }
+.consult-feedback[data-state="success"] { background: #eef7f1; color: #21583c; border-color: #b8d4c3; }
+.consult-feedback[data-state="error"] { background: #fff3ee; color: #803d2c; border-color: #e1c3b6; }
+
+.consult-contacts h2 { font-size: 1.125rem; margin-bottom: 2rem; }
+.consult-contacts-list { display: grid; gap: 1.1rem; }
+.consult-contact { display: flex; align-items: flex-start; gap: .75rem; }
+.consult-contact svg { flex: none; width: 1.25rem; height: 1.25rem; margin-top: .125rem; color: var(--primary, #083d7b); }
+.consult-contact h3 { margin-bottom: .125rem; }
+.consult-contact a { color: var(--primary, #083d7b); font-size: .875rem; line-height: 1.55; }
+.consult-contact .consult-whatsapp { display: inline-block; margin-top: .125rem; padding: .4rem .85rem; border-radius: .5rem; background: #167746; color: white; font-weight: 600; }
+
+@media (min-width: 48rem) {
+  .consult-hero { padding-block: 6rem; }
+  .consult-hero h1 { font-size: 3rem; }
+  .consult-content { padding-block: 6rem; }
+  .consult-field :is(input, textarea, select) { font-size: .875rem; }
+}
+
+@media (min-width: 64rem) {
+  .consult-content { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .consult-form-card { grid-column: span 2; }
+}
