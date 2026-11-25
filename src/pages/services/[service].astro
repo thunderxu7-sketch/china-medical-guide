@@ -31,7 +31,7 @@ const title = service.slug === "cataract-treatment" ? "Cataract Treatment and In
     <section class="svc-facts" aria-label="Cost and timing">
       <div class="svc-container">
         <dl class="svc-fact-grid">
-          <div class="svc-fact"><dt>{pricing.label} · USD</dt><dd>{pricing.text}</dd></div>
+          <div class="svc-fact"><dt>{pricing.label}{(detail.price || detail.referencePrice) && " · USD"}</dt><dd>{pricing.text}</dd></div>
           <div class="svc-fact"><dt>Time in China</dt><dd>{detail.stayInChina}</dd></div>
           <div class="svc-fact"><dt>{service.category === "tcm" ? "Program or session length" : "Reference recovery window"}</dt><dd>{detail.recovery}</dd></div>
           <div class="svc-fact"><dt>Care setting</dt><dd>{detail.setting}</dd></div>

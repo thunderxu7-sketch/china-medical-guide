@@ -34,3 +34,8 @@ test("missing and open-ended fees keep the quote route intelligible", () => {
   assert.equal(getServicePricing("cataract-treatment", {}).text, "Request a quote");
   assert.equal(formatServicePrice({ currency: "USD", minimum: 80, unit: "session" }), "From $80 per session");
 });
+
+test("an unspecified unit stays explicit on orthopedic reference estimates", () => {
+  assert.equal(getServicePricing("fracture-treatment").text, "$3,000–$7,000 (unit to confirm)");
+  assert.equal(getServicePricing("sports-injury").text, "$4,000–$10,000 (unit to confirm)");
+});

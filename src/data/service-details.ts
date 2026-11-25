@@ -4,7 +4,7 @@ export interface ServicePrice {
   currency: "USD";
   minimum: number;
   maximum?: number;
-  unit: "procedure" | "eye" | "session" | "month" | "program";
+  unit: "procedure" | "eye" | "session" | "month" | "program" | "unspecified";
 }
 
 export interface ServiceDetails {
@@ -36,7 +36,7 @@ export const serviceDetails: Record<ServiceSlug, ServiceGuide> = {
   "hip-replacement": {
     summary: "Plan a hip replacement consultation, from sharing prior imaging to arranging support after discharge.",
     overview: "A hip replacement enquiry starts with an orthopaedic review of the affected joint. Ask the hospital to identify the proposed implant, surgical approach and rehabilitation arrangements in its written estimate.",
-    referencePrice: published(12000, 18000, "procedure"), stayInChina: "1–2 weeks", recovery: "6–12 weeks", setting: "In person",
+    referencePrice: published(12000, 18000, "procedure"), stayInChina: "1–2 weeks", recovery: "6–12 weeks to full mobility", setting: "In person",
     prepare: ["Copies of hip X-rays and their written reports.", "A list of earlier hip procedures, walking aids and the help available at home."],
     questions: ["Which implant and hospital services are included in the estimate?", "When would the team reassess travel and return to daily activities?"],
     followUp: "Ask for implant identification details and a written rehabilitation handover for the team at home.",
@@ -44,7 +44,7 @@ export const serviceDetails: Record<ServiceSlug, ServiceGuide> = {
   "knee-replacement": {
     summary: "Explore the assessment, hospital stay and rehabilitation arrangements for knee replacement.",
     overview: "The knee assessment helps the surgeon discuss a partial or total replacement and the support needed afterwards. A useful estimate identifies the knee, implant and number of planned inpatient days.",
-    referencePrice: published(12000, 17000, "procedure"), stayInChina: "1–2 weeks", recovery: "6–12 weeks", setting: "In person",
+    referencePrice: published(12000, 17000, "procedure"), stayInChina: "1–2 weeks", recovery: "6–12 weeks to walking independently", setting: "In person",
     prepare: ["Recent knee imaging and reports, labelled with the affected side.", "A short account of walking, stairs and activities you hope to return to."],
     questions: ["Which rehabilitation sessions and walking aids are included?", "Who reviews progress after the first hospital appointment?"],
     followUp: "Request a discharge summary and a physiotherapy plan that your local team can continue.",
@@ -52,7 +52,7 @@ export const serviceDetails: Record<ServiceSlug, ServiceGuide> = {
   "cardiac-surgery": {
     summary: "Prepare for a hospital review of heart treatment options and the practical demands of a longer stay.",
     overview: "Cardiac enquiries can involve very different procedures. Have the receiving team name the proposed intervention and outline hospital monitoring, follow-up and any rehabilitation in its estimate.",
-    referencePrice: published(15000, 28000, "procedure"), stayInChina: "2–3 weeks", recovery: "8–12 weeks", setting: "In person",
+    referencePrice: published(15000, 28000, "procedure"), stayInChina: "2–3 weeks", recovery: "8–12 weeks of cardiac rehabilitation", setting: "In person",
     prepare: ["Existing cardiology letters, imaging reports and procedure records.", "A current medication list and the contact details of your cardiologist."],
     questions: ["What procedure and level of inpatient care does this estimate cover?", "Who coordinates the return to your home cardiologist?"],
     followUp: "Discuss the first outpatient review, the rehabilitation plan and travel timing with the treating team.",
@@ -100,7 +100,7 @@ export const serviceDetails: Record<ServiceSlug, ServiceGuide> = {
   "fracture-treatment": {
     summary: "Discuss an existing fracture diagnosis and how scheduled reviews might be shared between clinics.",
     overview: "A specialist can review earlier imaging and explain the proposed non-surgical care pathway. A planned enquiry should identify the fracture site and local team available for repeat examinations.",
-    referencePrice: published(3000, 7000, "program"), stayInChina: "2–3 days for assessment", recovery: "6–12 weeks", setting: "In person",
+    referencePrice: published(3000, 7000, "unspecified"), stayInChina: "2–3 days for assessment", recovery: "6–12 weeks, depending on the fracture", setting: "In person",
     prepare: ["Original injury imaging, follow-up images and written reports.", "The injury date and details of any splint, cast or clinic review."],
     questions: ["What is included in the initial assessment and subsequent checks?", "Which reviews need new imaging or an in-person examination?"],
     followUp: "Confirm who will arrange local imaging and how those images will reach the reviewing specialist.",
@@ -108,7 +108,7 @@ export const serviceDetails: Record<ServiceSlug, ServiceGuide> = {
   "sports-injury": {
     summary: "Organise a review of a sports injury and compare rehabilitation and procedure estimates.",
     overview: "A sports injury assessment can cover clinic-based rehabilitation or further surgical review. Ask the team to specify the injured structure and the scope of the proposed treatment before making plans.",
-    referencePrice: published(4000, 10000, "program"), stayInChina: "2–4 weeks if surgical", recovery: "8–24 weeks", setting: "In person",
+    referencePrice: published(4000, 10000, "unspecified"), stayInChina: "2–4 weeks if surgical", recovery: "8–24 weeks to sport-specific activity", setting: "In person",
     prepare: ["Existing imaging and notes from your clinician or physiotherapist.", "A timeline of the injury, training demands and rehabilitation already tried."],
     questions: ["Does the proposed fee cover an operation, a rehabilitation program or both?", "How will your local therapist receive the return-to-sport criteria?"],
     followUp: "Ask how the team will assess readiness for training and where later functional reviews can take place.",
@@ -155,14 +155,15 @@ const usd = new Intl.NumberFormat("en-US", {
 });
 
 const compactUnits: Record<ServicePrice["unit"], string> = {
-  procedure: "", eye: "/eye", session: "/visit", month: "/mo", program: "/program",
+  procedure: "", eye: "/eye", session: "/visit", month: "/mo", program: "/program", unspecified: "",
 };
 
 export function formatServicePrice(price: ServicePrice): string {
   const minimum = usd.format(price.minimum);
-  if (price.maximum === undefined) return `From ${minimum} per ${price.unit}`;
-  if (price.maximum === price.minimum) return `${minimum} per ${price.unit}`;
-  return `${minimum}–${usd.format(price.maximum)} per ${price.unit}`;
+  const suffix = price.unit === "unspecified" ? " (unit to confirm)" : ` per ${price.unit}`;
+  if (price.maximum === undefined) return `From ${minimum}${suffix}`;
+  if (price.maximum === price.minimum) return `${minimum}${suffix}`;
+  return `${minimum}–${usd.format(price.maximum)}${suffix}`;
 }
 
 export function getServicePricing(slug: ServiceSlug, details: ServiceDetails = serviceDetails[slug]) {
