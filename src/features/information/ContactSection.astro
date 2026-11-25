@@ -1,4 +1,6 @@
 ---
+import { pageHref } from "../../lib/site-url";
+import { emailEnabled } from "../../components/site/contact";
 interface Props {
   title: string;
   description: string;
@@ -10,7 +12,7 @@ const { title, description, label, light = false } = Astro.props;
 <section class:list={["info-contact", { "info-contact--light": light }]}>
   <div class="info-narrow">
     <h2>{title}</h2>
-    <p>{description}</p>
-    <a class="info-button" href="/consultation">{label}</a>
+    <p>{emailEnabled ? description : "Choose a service to review costs and find questions to take to your provider."}</p>
+    <a class="info-button" href={pageHref("/consultation")}>{emailEnabled ? label : "Open the consultation guide"}</a>
   </div>
 </section>

@@ -1,9 +1,10 @@
 ---
+import { pageHref } from "../../lib/site-url";
 import SiteIcon from "./SiteIcon.astro";
 interface Props { whatsAppUrl?: string; }
 const { whatsAppUrl } = Astro.props;
 ---
-<a class="floating-contact" data-floating-contact href={whatsAppUrl || "/consultation"} target={whatsAppUrl ? "_blank" : undefined} rel={whatsAppUrl ? "noopener noreferrer" : undefined} hidden>
+<a class="floating-contact" data-floating-contact href={pageHref(whatsAppUrl || "/consultation")} target={whatsAppUrl ? "_blank" : undefined} rel={whatsAppUrl ? "noopener noreferrer" : undefined} hidden>
   <SiteIcon name="message" /><span>{whatsAppUrl ? "Chat on WhatsApp" : "Ask about care"}</span>
 </a>
 <script>

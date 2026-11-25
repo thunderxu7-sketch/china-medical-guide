@@ -1,4 +1,6 @@
 ---
+import { pageHref } from "../../lib/site-url";
+import { emailEnabled } from "../../components/site/contact";
 interface Props {
   href: string;
   title: string;
@@ -10,7 +12,7 @@ const { href, title, description, action } = Astro.props;
 <section class="svc-cta">
   <div class="svc-container">
     <h2>{title}</h2>
-    <p>{description}</p>
-    <a class="svc-cta-action" href={href}>{action}</a>
+    <p>{emailEnabled ? description : "Use the consultation guide to review treatment costs, visit arrangements and questions to discuss with your provider."}</p>
+    <a class="svc-cta-action" href={pageHref(href)}>{emailEnabled ? action : "Plan your consultation"}</a>
   </div>
 </section>

@@ -1,0 +1,39 @@
+---
+import { services } from "../../data/services";
+import { pageHref } from "../../lib/site-url";
+---
+<div class="consult-guide">
+  <p>Online consultation requests are currently closed. Choose a service to review its costs, timing and questions to ask the clinic.</p>
+  <div class="consult-field">
+    <label for="guide-service">Service of interest</label>
+    <span class="consult-select">
+      <select id="guide-service">
+        <option value="" data-url={pageHref("/services")}>Select a service</option>
+        {services.map((service) => (
+          <option value={service.slug} data-url={pageHref(`/services/${service.slug}`)}>{service.name}</option>
+        ))}
+      </select>
+    </span>
+  </div>
+  <a class="site-button" id="guide-link" href={pageHref("/services")}>Browse all services</a>
+</div>
+
+<script>
+  import { preselectedService } from "./request";
+  const select = document.querySelector<HTMLSelectElement>("#guide-service");
+  const link = document.querySelector<HTMLAnchorElement>("#guide-link");
+  if (select && link) {
+    select.value = preselectedService(window.location.search);
+    const update = () => {
+      link.href = select.selectedOptions[0].dataset.url!;
+      link.textContent = select.value ? "View service details" : "Browse all services";
+    };
+    select.addEventListener("change", update);
+    update();
+  }
+</script>
+
+<style>
+  .consult-guide { display: grid; justify-items: start; gap: 1.5rem; }
+  .consult-guide > p { color: var(--muted-foreground); line-height: 1.6; }
+</style>

@@ -1,10 +1,13 @@
 ---
+import { pageHref } from "../lib/site-url";
 import InformationPage from "../features/information/InformationPage.astro";
+import { emailEnabled } from "../components/site/contact";
 ---
 <InformationPage title="Privacy Policy" summary="How China Medical Guide handles consultation enquiries, contact details and email replies.">
   <article class="info-narrow info-policy">
-    <aside><strong>Draft for operator review.</strong> This notice describes the current form and email delivery process. The operator’s legal name, privacy contact and retention schedule are pending confirmation.</aside>
+    <aside><strong>Draft for operator review.</strong> The operator’s legal name, privacy contact and retention schedule are pending confirmation.</aside>
 
+    {emailEnabled ? <>
     <section>
       <h2>What the form collects</h2>
       <p>The form asks for your name, email address, telephone number, country and the service you are interested in. You can add a short message about your enquiry. Share only the details the team needs to respond. Ask the receiving clinic for a suitable channel before sharing medical records or identity documents.</p>
@@ -21,14 +24,20 @@ import InformationPage from "../features/information/InformationPage.astro";
       <p>The consultation endpoint has no patient or enquiry database. The message and any later correspondence may remain in the receiving mailbox and in the systems used to host the site and deliver email, subject to each service’s settings. The project’s form handler does not log message contents.</p>
     </section>
 
+    </> : <section>
+      <h2>Browsing this guide</h2>
+      <p>This site is hosted on GitHub Pages. The consultation guide uses your service selection to show the corresponding information. Online enquiries are closed, and this site does not collect contact details or send consultation emails.</p>
+      <p>GitHub processes technical information when it serves a page. <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a></p>
+    </section>}
+
     <section>
       <h2>Optional contact links</h2>
       <p>If a WhatsApp contact is available, opening that link takes you to WhatsApp. You choose what to send there. External price references, hospital directories and consular resources also open services operated by other organisations.</p>
     </section>
 
-    <section>
+    {emailEnabled && <section>
       <h2>Questions about your information</h2>
-      <p>Reply to any email you have received from the team to ask about an enquiry, correct contact details or request deletion. If you have no email thread, use the consultation form and include the date of the original enquiry so it can be located. <a href="/consultation">Contact the team</a></p>
-    </section>
+      <p>Reply to any email you have received from the team to ask about an enquiry, correct contact details or request deletion. If you have no email thread, use the consultation form and include the date of the original enquiry so it can be located. <a href={pageHref("/consultation")}>Contact the team</a></p>
+    </section>}
   </article>
 </InformationPage>

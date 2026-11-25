@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../../lib/site-url";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { services } from "../../data/services";
 import { getServicePricing, serviceDetails } from "../../data/service-details";
@@ -22,10 +23,10 @@ const title = service.slug === "cataract-treatment" ? "Cataract Treatment and In
   <div class="svc-pages">
     <header class="svc-hero">
       <div class="svc-container">
-        <a class="svc-back" href={`/services#${service.category}`}><ServiceIcon name="chevron" size={16} />Back to services</a>
+        <a class="svc-back" href={pageHref(`/services#${service.category}`)}><ServiceIcon name="chevron" size={16} />Back to services</a>
         <h1>{title}</h1>
         <p>{detail.summary}</p>
-        <a href={`/services#${service.category}`} class="svc-category-tag"><ServiceIcon name={group.icon} size={16} />{group.name}</a>
+        <a href={pageHref(`/services#${service.category}`)} class="svc-category-tag"><ServiceIcon name={group.icon} size={16} />{group.name}</a>
       </div>
     </header>
     <section class="svc-facts" aria-label="Cost and timing">

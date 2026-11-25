@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../lib/site-url";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { patientStories } from "../features/stories/data";
 import StoryCollection from "../features/stories/StoryCollection.astro";
@@ -20,7 +21,7 @@ const guides = [
   </section>
   <nav class="people-directory-nav" aria-label="Patient planning guides">
     <ul class="people-container">
-      {guides.map((guide) => <li><a href={guide.href}><strong>{guide.title}</strong><span>{guide.detail}</span></a></li>)}
+      {guides.map((guide) => <li><a href={pageHref(guide.href)}><strong>{guide.title}</strong><span>{guide.detail}</span></a></li>)}
     </ul>
   </nav>
   <StoryCollection stories={patientStories} />
@@ -28,7 +29,7 @@ const guides = [
     <div class="people-container">
       <h2 class="people-section-title">Have a Question About Your Visit?</h2>
       <p>Ask about a specific service or about the arrangements for your trip.</p>
-      <a class="site-button" href="/consultation">Request a consultation</a>
+      <a class="site-button" href={pageHref("/consultation")}>Request a consultation</a>
     </div>
   </section>
 </BaseLayout>

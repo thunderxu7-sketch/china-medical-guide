@@ -1,4 +1,5 @@
 ---
+import { publicAsset, routePath } from "../lib/site-url";
 import "../styles/global.css";
 import SiteHeader from "../components/site/SiteHeader.astro";
 import SiteFooter from "../components/site/SiteFooter.astro";
@@ -12,7 +13,7 @@ interface Props {
 
 const { title, description } = Astro.props;
 const whatsAppUrl = getWhatsAppUrl(import.meta.env.PUBLIC_WHATSAPP_NUMBER);
-const consultationPage = Astro.url.pathname.replace(/\/$/, "") === "/consultation";
+const consultationPage = routePath(Astro.url.pathname) === "/consultation";
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ const consultationPage = Astro.url.pathname.replace(/\/$/, "") === "/consultatio
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#073879" />
-    <link rel="icon" href="/media/site/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={publicAsset("/media/site/favicon.svg")} type="image/svg+xml" />
     {Astro.site && <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />}
     <title>{title}</title>
   </head>

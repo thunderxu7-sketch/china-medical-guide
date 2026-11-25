@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../lib/site-url";
 import InformationPage from "../features/information/InformationPage.astro";
 import ContactSection from "../features/information/ContactSection.astro";
 import { getFaqGroups } from "../features/information/faq-content";
@@ -16,7 +17,7 @@ const groups = getFaqGroups(getServicePricing("cataract-treatment"));
             <summary>{item.question}</summary>
             <div class="info-answer">
               <p>{item.answer}</p>
-              {item.links?.map(link => <a href={link.href}>{link.text}</a>)}
+              {item.links?.map(link => <a href={pageHref(link.href)}>{link.text}</a>)}
             </div>
           </details>
         ))}
