@@ -155,7 +155,7 @@ const usd = new Intl.NumberFormat("en-US", {
 });
 
 const compactUnits: Record<ServicePrice["unit"], string> = {
-  procedure: "", eye: "/eye", session: "/visit", month: "/mo", program: "/program", unspecified: "",
+  procedure: "/procedure", eye: "/eye", session: "/visit", month: "/mo", program: "/program", unspecified: " · unit to confirm",
 };
 
 export function formatServicePrice(price: ServicePrice): string {

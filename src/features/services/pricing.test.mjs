@@ -38,4 +38,6 @@ test("missing and open-ended fees keep the quote route intelligible", () => {
 test("an unspecified unit stays explicit on orthopedic reference estimates", () => {
   assert.equal(getServicePricing("fracture-treatment").text, "$3,000–$7,000 (unit to confirm)");
   assert.equal(getServicePricing("sports-injury").text, "$4,000–$10,000 (unit to confirm)");
+  assert.match(getServicePricing("fracture-treatment").shortText, /unit to confirm/);
+  assert.match(getServicePricing("sports-injury").shortText, /unit to confirm/);
 });

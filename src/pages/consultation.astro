@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getWhatsAppUrl } from "../components/site/contact";
 import { consultationEndpoint } from "../contracts/consultations";
 import { services } from "../data/services";
 import { countries } from "../features/consultation-form/countries";
 import "../features/consultation-form/consultation.css";
 
-const number = import.meta.env.PUBLIC_WHATSAPP_NUMBER?.trim();
-const whatsAppUrl = number && /^[1-9]\d{6,14}$/.test(number) ? `https://wa.me/${number}` : undefined;
+const whatsAppUrl = getWhatsAppUrl(import.meta.env.PUBLIC_WHATSAPP_NUMBER);
 const categories = {
   surgery: "Surgical procedures",
   ophthalmology: "Ophthalmology",
