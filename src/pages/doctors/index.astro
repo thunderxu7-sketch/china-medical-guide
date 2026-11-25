@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { specialties } from "../../features/specialists/data";
+import PeopleIcon from "../../features/specialists/PeopleIcon.astro";
+import { services } from "../../data/services";
+import "../../features/specialists/people.css";
+
+const steps = [
+  { title: "Choose a Specialty", icon: "search", text: "Explore the services that relate to the reason for your visit." },
+  { title: "Prepare Your Questions", icon: "person", text: "List what you want to know about the doctor, hospital and cost." },
+  { title: "Request a Consultation", icon: "clipboard", text: "Share your preferred service and contact details with the team." },
+] as const;
+---
+<BaseLayout title="Specialist Directory | China Medical Guide" description="Explore orthopedic and ophthalmology specialist guides and prepare questions for a consultation in China.">
+  <section class="people-hero">
+    <div class="people-container">
+      <h1>Specialist Directory &amp; Consultations</h1>
+      <p>Find the right starting point for an orthopedic or eye care appointment in China. Explore each specialty, review related services and prepare questions for the clinic before you book.</p>
+    </div>
+  </section>
+  <section class="people-band">
+    <div class="people-container">
+      <h2 class="people-section-title">How to Plan a Specialist Visit</h2>
+      <p class="people-section-note">Use these steps to prepare for your first conversation with the receiving clinic.</p>
+      <ol class="people-steps">
+        {steps.map((step) => (
+          <li>
+            <PeopleIcon name={step.icon} size={40} />
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section class="people-band people-band-muted">
+    <div class="people-container">
+      <h2 class="people-section-title">Explore the Specialties</h2>
+      <div class="people-directory">
+        {specialties.map((specialty) => (
+          <article class="people-card people-spec-card">
+            <h3>{specialty.clinician?.name ?? specialty.title}</h3>
+            <p class="people-field">{specialty.field}</p>
+            <p>{specialty.summary}</p>
+            <ul>
+              {specialty.services.slice(0, 3).map((slug) => (
+                <li><PeopleIcon name="check" size={15} />{services.find((entry) => entry.slug === slug)?.name}</li>
+              ))}
+            </ul>
+            <a class="people-card-link" href={`/doctors/${specialty.slug}`}>View {specialty.slug === "orthopedic" ? "orthopedic" : "eye care"} guide</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="people-band people-cta">
+    <div class="people-container">
+      <h2>Planning a Specialist Visit?</h2>
+      <p>Tell the team which service you are considering and what you would like the clinic to confirm.</p>
+      <a class="site-button site-button--secondary" href="/consultation">Request a consultation</a>
+    </div>
+  </section>
+</BaseLayout>

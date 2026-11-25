@@ -1,0 +1,134 @@
+.people-container {
+  width: min(100%, 80rem);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+.people-hero {
+  padding-block: 4rem;
+  background: linear-gradient(105deg, #e3e8ef 0%, #efebec 78%, #f2ebe8 100%);
+}
+.people-hero h1 {
+  max-width: 64rem;
+  margin: 0;
+  color: var(--foreground, #15171b);
+  font-size: 2.25rem;
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  overflow-wrap: anywhere;
+}
+.people-hero p,
+.people-lead {
+  margin-block: 1rem 0;
+  color: var(--muted-foreground, #4c5056);
+  font-size: 1.125rem;
+  line-height: 1.63;
+}
+.people-hero p { max-width: 42rem; }
+.people-band { padding-block: 4rem; }
+.people-band-muted { background: #f3f3f4; }
+.people-section-title,
+.people-heading,
+.people-cta h2,
+.people-empty h2,
+.people-steps h3 {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 720;
+  line-height: 1.22;
+  letter-spacing: -.042em;
+}
+.people-section-title, .people-section-note, .people-bottom, .people-cta { text-align: center; }
+.people-section-note {
+  margin: 3rem auto;
+  max-width: 42rem;
+  color: var(--muted-foreground, #4c5056);
+  font-size: .95rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+.people-steps, .people-directory, .people-pair, .people-story-grid {
+  display: grid;
+  gap: 2rem;
+}
+.people-steps { list-style: none; margin: 0; padding: 0; }
+.people-steps li, .people-card {
+  border: 1px solid var(--border, #e4e5e6);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgb(21 23 27 / 7%);
+}
+.people-steps li { padding: 3.5rem 1.5rem 1.5rem; background: #eff1f6; text-align: center; }
+.people-steps li > svg { margin: 0 auto 1rem; color: var(--primary, #073879); }
+.people-steps p, .people-spec-card p, .people-directory-nav span, .people-story header p, .people-story footer {
+  margin-block: .65rem 0;
+  color: var(--muted-foreground, #4c5056);
+  font-size: .925rem;
+  line-height: 1.55;
+}
+.people-directory { max-width: 56rem; margin: 3rem auto 0; }
+.people-card { background: var(--card, #f8f8f8); }
+.people-spec-card { display: flex; flex-direction: column; align-items: stretch; padding: 1.5rem; }
+.people-spec-card h3, .people-records dt, .people-story h2 { font-size: 1.125rem; font-weight: 650; }
+.people-spec-card .people-field { color: #92563f; font-weight: 600; }
+.people-spec-card ul, .people-questions, .people-tags { list-style: none; padding: 0; }
+.people-spec-card ul { display: grid; gap: .55rem; margin: 1rem 0 1.5rem; }
+.people-spec-card li, .people-questions li, .people-heading { display: flex; align-items: baseline; gap: .5rem; }
+.people-spec-card li { font-size: .925rem; }
+.people-spec-card li > svg, .people-questions li > svg, .people-heading > svg { align-self: flex-start; flex: none; margin-top: .2rem; color: var(--primary, #073879); }
+.people-card-link {
+  display: block;
+  margin-top: auto;
+  padding: .65rem 1rem;
+  border: 1px solid var(--border, #e4e5e6);
+  border-radius: .55rem;
+  text-align: center;
+  font-size: .925rem;
+  font-weight: 600;
+}
+.people-card-link:hover, .people-questions li { background: white; }
+.people-card-link:hover, .people-directory-nav a:hover strong { color: var(--primary, #073879); text-decoration: underline; }
+.people-cta { background: var(--primary, #073879); color: white; }
+.people-cta p, .people-bottom p, .people-empty p { max-width: 40rem; margin: 1rem auto 1.5rem; line-height: 1.65; }
+.people-bottom p, .people-empty p, .people-copy, .people-records dd { color: var(--muted-foreground, #4c5056); }
+.people-back, .people-text-link { color: var(--primary, #073879); font-weight: 600; }
+.people-text-link { text-decoration: underline; text-underline-offset: .18em; }
+.people-back { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1rem; }
+.people-back::before { content: ""; width: .55rem; height: .55rem; border: solid currentColor; border-width: 0 0 1.5px 1.5px; transform: rotate(45deg); }
+.people-profile { display: flex; flex-direction: column; align-items: flex-start; gap: 2rem; }
+.people-avatar, .people-avatar-sm { display: inline-grid; flex: none; place-items: center; border-radius: 50%; }
+.people-avatar { width: 8rem; height: 8rem; color: var(--primary, #073879); background: #ced7e3; }
+.people-profile .people-profile-field { margin-top: .6rem; color: #92563f; font-weight: 650; }
+.people-profile .site-button { margin-top: 1.5rem; }
+.people-clinician p { margin-top: .3rem; }
+.people-lead { margin-top: 1.5rem; }
+.people-records, .people-questions, .people-tags, .people-copy { margin: 1.25rem 0 0; }
+.people-records > div + div { margin-top: 1.5rem; }
+.people-records dd, .people-copy { line-height: 1.65; }
+.people-records dd { margin: .3rem 0 0; }
+.people-questions { display: grid; gap: .55rem; }
+.people-questions li { align-items: center; padding: .75rem; border-radius: .5rem; line-height: 1.5; }
+.people-tags { display: flex; flex-wrap: wrap; gap: .55rem; }
+.people-tags a { display: inline-block; padding: .45rem .8rem; border-radius: .45rem; background: var(--primary, #073879); color: white; font-size: .925rem; }
+.people-tags a:hover { text-decoration: underline; }
+.people-copy + a { display: inline-block; margin-top: 1rem; }
+.people-directory-nav { padding-block: 3rem; }
+.people-directory-nav ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; list-style: none; }
+.people-directory-nav a, .people-directory-nav span { display: block; text-align: center; }
+.people-directory-nav strong { color: var(--primary, #073879); font-size: 1.85rem; letter-spacing: -.04em; line-height: 1.2; }
+.people-avatar-sm { height: 3rem; width: 3rem; background: var(--primary, #073879); color: white; }
+.people-empty { max-width: 52rem; margin: 0 auto; padding: 3rem 1.5rem; text-align: center; }
+.people-empty h2 { margin-top: 1rem; }
+.people-story { padding: 2rem 1.5rem 1.5rem; }
+.people-story header { display: flex; align-items: center; gap: .75rem; }
+.people-story blockquote { margin: 1.25rem 0; font-style: italic; white-space: pre-line; line-height: 1.65; }
+.people-story footer { padding-top: 1rem; border-top: 1px solid var(--border, #e4e5e6); }
+.people-story footer a { color: var(--primary, #073879); text-decoration: underline; }
+@media (min-width: 48rem) {
+  .people-hero, .people-band { padding-block: 6rem; }
+  .people-hero h1 { font-size: 3rem; }
+  .people-steps, .people-story-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .people-directory, .people-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .people-profile { flex-direction: row; }
+  .people-directory-nav { padding-block: 4rem; }
+  .people-directory-nav ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
