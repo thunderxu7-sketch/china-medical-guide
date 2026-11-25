@@ -1,0 +1,16 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  action: string;
+}
+const { href, title, description, action } = Astro.props;
+---
+<section class="svc-cta">
+  <div class="svc-container">
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <a class="svc-cta-action" href={href}>{action}</a>
+  </div>
+</section>

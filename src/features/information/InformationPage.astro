@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "./information.css";
+
+interface Props {
+  title: string;
+  summary: string;
+  centered?: boolean;
+}
+
+const { title, summary, centered = false } = Astro.props;
+---
+
+<BaseLayout title={title + " | China Medical Guide"} description={summary}>
+  <div class="info-page">
+    <header class:list={["info-hero", { "info-hero--centered": centered }]}>
+      <div class="info-wrap">
+        <h1>{title}</h1>
+        <p>{summary}</p>
+      </div>
+    </header>
+    <slot />
+  </div>
+</BaseLayout>

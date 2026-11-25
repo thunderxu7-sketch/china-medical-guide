@@ -1,0 +1,27 @@
+---
+import InformationPage from "../features/information/InformationPage.astro";
+import ContactSection from "../features/information/ContactSection.astro";
+import { getFaqGroups } from "../features/information/faq-content";
+import { getServicePricing } from "../data/service-details";
+
+const groups = getFaqGroups(getServicePricing("cataract-treatment"));
+---
+<InformationPage title="Frequently Asked Questions" summary="Find answers about travelling for care, checking a hospital’s credentials, understanding prices and arranging follow-up.">
+  <div class="info-section info-narrow">
+    {groups.map(group => (
+      <section class="info-faq-group" aria-labelledby={group.id}>
+        <h2 id={group.id}>{group.title}</h2>
+        {group.questions.map(item => (
+          <details name={group.id}>
+            <summary>{item.question}</summary>
+            <div class="info-answer">
+              <p>{item.answer}</p>
+              {item.links?.map(link => <a href={link.href}>{link.text}</a>)}
+            </div>
+          </details>
+        ))}
+      </section>
+    ))}
+  </div>
+  <ContactSection light title="Have another question?" description="Send the team your question about a service, an estimate or the practical details of a visit." label="Contact the team" />
+</InformationPage>

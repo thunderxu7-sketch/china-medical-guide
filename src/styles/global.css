@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+:root {
+  --primary: oklch(35% .15 250);
+  --primary-foreground: #fff;
+  --secondary: #975c46;
+  --secondary-foreground: #fff;
+  --background: #fafafa;
+  --foreground: #15171b;
+  --card: #f8f8f8;
+  --border: #e4e5e6;
+  --muted: #ececed;
+  --muted-foreground: #4c5056;
+  --radius: .75rem;
+  color-scheme: light;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-text-size-adjust: 100%;
+}
+
+body { margin: 0; min-width: 0; }
+main { display: block; min-height: 35vh; }
+:where(a, button, summary, select, input, textarea):focus-visible {
+  outline: 3px solid #2774b7;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px #fff;
+}
+:where(h1, h2, h3, [id]) { scroll-margin-top: 5rem; }
+.site-container { width: min(100%, 80rem); margin-inline: auto; padding-inline: 1rem; }
+.site-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 2.3rem;
+  padding: .48rem 1rem;
+  border: 1px solid transparent;
+  border-radius: .58rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: .875rem;
+  line-height: 1.35;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+.site-button:hover { background: color-mix(in srgb, var(--primary) 90%, black); }
+.site-button--secondary { background: var(--secondary); color: var(--secondary-foreground); }
+.site-button--secondary:hover { background: color-mix(in srgb, var(--secondary) 87%, black); }
+.skip-link { position: fixed; z-index: 50; top: .4rem; left: .5rem; transform: translateY(-170%); border-radius: .4rem; padding: .65rem 1rem; background: var(--primary); color: white; }
+.skip-link:focus { transform: none; }

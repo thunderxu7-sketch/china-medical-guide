@@ -1,0 +1,26 @@
+---
+interface Props {
+  name: "activity" | "heart" | "eye" | "bone" | "leaf" | "check" | "clock" | "chevron";
+  size?: number;
+}
+const { name, size = 24 } = Astro.props;
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {name === "activity" && <path d="M2 13h4l3-9 5 17 3-10h5" />}
+  {name === "heart" && <>
+    <path d="M12 21 4 13a6 6 0 0 1 8-9 6 6 0 0 1 8 9Z" />
+    <path d="M4 12h5l2-4 3 8 2-4h4" />
+  </>}
+  {name === "eye" && <>
+    <path d="M2 12s3.4-7 10-7 10 7 10 7-3.4 7-10 7S2 12 2 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </>}
+  {name === "bone" && <path d="M5.7 14.8a3.2 3.2 0 0 0-2.6 5.4 3.2 3.2 0 0 0 5.4-2.5l8.9-8.9a3.2 3.2 0 0 0 2.7-5.4 3.2 3.2 0 0 0-5.4 2.6Z" />}
+  {name === "leaf" && <>
+    <path d="M20.7 3.8c.4 8.1-2.4 14.6-9.1 15.2-4.2.4-7.1-2.3-7.1-6.1 0-6.4 7.8-7.4 16.2-9.1Z" />
+    <path d="M4.2 21c3.8-4.8 7.1-8 11.4-11.5" />
+  </>}
+  {name === "check" && <><circle cx="12" cy="12" r="9" /><path d="m8 12 2.7 2.6L16 9" /></>}
+  {name === "clock" && <><circle cx="12" cy="12" r="9" /><path d="M12 6.5v6l3.8 2" /></>}
+  {name === "chevron" && <path d="m13.5 5.5-6.5 6.5 6.5 6.5" />}
+</svg>

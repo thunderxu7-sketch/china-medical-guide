@@ -1,10 +1,177 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
----
+import SiteIcon from "../components/site/SiteIcon.astro";
+import { services } from "../data/services";
 
-<BaseLayout title="China Medical Guide" description="Development preview for China Medical Guide.">
-  <div class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-semibold">China Medical Guide</h1>
-    <p class="mt-3">Development preview.</p>
-  </div>
+const planning = [
+  { icon: "cost", title: "Understand the Costs", text: "Check how a service is priced and which expenses to ask about before you make plans." },
+  { icon: "hospital", title: "Prepare for the Visit", text: "Plan for time at the hospital, accommodation nearby and the journey home." },
+  { icon: "people", title: "Explore Specialist Care", text: "Read about orthopedic and eye care specialties and prepare questions for your consultation." },
+  { icon: "check", title: "Plan Your Follow-up", text: "Find out who to contact and what records to request before you leave China." },
+] as const;
+
+const categories = [
+  { key: "surgery", label: "Surgical Procedures" },
+  { key: "ophthalmology", label: "Ophthalmology Services" },
+  { key: "orthopedics", label: "Orthopedic Care" },
+  { key: "tcm", label: "Traditional Chinese Medicine" },
+] as const;
+---
+<BaseLayout
+  title="China Medical Guide | Plan Your Care in China"
+  description="Explore medical services in China, compare treatment and travel considerations, and ask about your options before arranging a visit."
+>
+  <section class="hero" aria-labelledby="home-heading">
+    <img class="hero-image" src="/media/site/hospital-hero.webp" alt="" width="1920" height="817" fetchpriority="high" />
+    <div class="hero-filter" aria-hidden="true"></div>
+    <div class="site-container hero-inner">
+      <div class="hero-copy">
+        <h1 id="home-heading"><span>Plan Your Medical Care</span> <span>and Travel to China</span></h1>
+        <p>Explore surgery, eye care, orthopedics and traditional Chinese medicine in China. Compare published cost estimates, plan how long to stay, and prepare questions for your specialist before requesting a consultation.</p>
+        <div class="hero-actions">
+          <a href="/consultation" class="site-button site-button--secondary">Start Your Consultation</a>
+          <a href="/services" class="site-button hero-outline">Explore Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="planning-heading">
+    <div class="site-container">
+      <div class="section-intro">
+        <h2 id="planning-heading">Why Use This Guide?</h2>
+        <p>Plan the details of medical travel, from deciding which specialist to contact to preparing for the weeks after treatment.</p>
+      </div>
+      <div class="planning-grid">
+        {planning.map((item) => (
+          <article class="planning-card">
+            <SiteIcon name={item.icon} size={48} />
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section services-section" aria-labelledby="services-heading">
+    <div class="site-container">
+      <div class="section-intro">
+        <h2 id="services-heading">Our Services</h2>
+        <p>Browse treatment and consultation options across four areas of care.</p>
+      </div>
+      <div class="service-photos">
+        <img src="/media/site/hospital-facility.webp" width="1080" height="720" loading="lazy" decoding="async" alt="A sunlit hospital reception and waiting area" />
+        <img src="/media/site/patient-recovery.webp" width="1080" height="720" loading="lazy" decoding="async" alt="A woman sitting beside a patient as they talk" />
+      </div>
+      <div class="category-grid">
+        {categories.map((category) => (
+          <article class="category">
+            <div class:list={["category-panel", `category-${category.key}`]}>
+              <h3>{category.label}</h3>
+              <ul>
+                {services.filter((service) => service.category === category.key).map((service) => (
+                  <li><SiteIcon name="check" size={20} /><a href={`/services/${service.slug}`}>{service.name}</a></li>
+                ))}
+              </ul>
+            </div>
+            <a class="category-link" href={`/services#${category.key}`} aria-label={`Learn more about ${category.label.toLowerCase()}`}>Learn More</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <nav class="home-section resource-strip" aria-label="Browse patient resources">
+    <div class="site-container resources">
+      <a href="/services"><strong>{services.length}</strong><span>Services to explore</span></a>
+      <a href="/doctors"><strong>2</strong><span>Specialist areas</span></a>
+      <a href="/travel"><strong>Travel</strong><span>Planning and support</span></a>
+      <a href="/faq"><strong>FAQ</strong><span>Common questions</span></a>
+    </div>
+  </nav>
+
+  <section class="home-section consultation-cta" aria-labelledby="consult-heading">
+    <div class="site-container">
+      <h2 id="consult-heading">Ready to Plan Your Visit?</h2>
+      <p>Tell us which service you are interested in and what you would like to know about the next steps.</p>
+      <a class="site-button site-button--secondary" href="/consultation">Request Your Consultation</a>
+    </div>
+  </section>
+  <aside class="home-note">
+    <p>Treatment plans, final fees and recovery times are individual. Confirm these details with your treating clinician before booking travel.</p>
+  </aside>
 </BaseLayout>
+
+<style>
+  .hero { position: relative; isolation: isolate; overflow: hidden; padding-block: 8rem; background: #485962; }
+  .hero-image, .hero-filter { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-image { z-index: -3; object-fit: cover; object-position: 50% 52%; }
+  .hero-filter {
+    z-index: -2;
+    background: linear-gradient(180deg, rgb(15 26 36 / .40), rgb(59 71 79 / .23) 37%, rgb(15 29 40 / .62) 62%, rgb(18 27 33 / .54));
+  }
+  .hero-filter::before, .hero-filter::after { content: ""; position: absolute; width: 24rem; height: 24rem; background: rgb(255 255 255 / .10); border-radius: 50%; }
+  .hero-filter::before { top: -12rem; right: -12rem; }
+  .hero-filter::after { bottom: -12rem; left: -12rem; }
+  .hero-copy { max-width: 48rem; margin-inline: auto; text-align: center; }
+  .hero h1 { color: #101820; font-size: 3.75rem; line-height: 1.25; font-weight: 750; letter-spacing: -.045em; margin: 0 0 1.5rem; }
+  .hero h1 span { display: block; }
+  .hero-copy > p { color: #fff; margin: 0 0 2rem; font-size: 1.5rem; line-height: 1.625; text-shadow: 0 1px 4px rgb(0 0 0 / .55); }
+  .hero-actions { display: flex; justify-content: center; gap: 1rem; }
+  .hero-actions .site-button, .consultation-cta .site-button { min-height: 2.55rem; padding-inline: 1.5rem; }
+  .hero-outline { background: rgb(12 24 36 / .20); border-color: #fff; color: #fff; }
+  .hero-outline:hover { background: rgb(12 24 36 / .52); }
+  .home-section { padding-block: 7rem; }
+  .section-intro { margin-bottom: 4rem; text-align: center; }
+  .section-intro h2, .consultation-cta h2 { margin: 0 0 1rem; font-size: 3rem; line-height: 1.05; font-weight: 750; letter-spacing: -.045em; }
+  .section-intro p { max-width: 42rem; margin-inline: auto; color: var(--muted-foreground); font-size: 1.125rem; line-height: 1.625; }
+  .planning-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+  .planning-card { padding: 3rem 1.5rem 1.5rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--card); box-shadow: 0 1px 3px rgb(0 0 0 / .08); }
+  .planning-card :global(svg) { color: var(--primary); margin-bottom: 1rem; }
+  .planning-card h3 { font-size: 1.125rem; font-weight: 650; margin: 0 0 .5rem; letter-spacing: -.025em; }
+  .planning-card p { color: var(--muted-foreground); font-size: 1rem; line-height: 1.625; }
+  .services-section { background: #f4f4f5; }
+  .service-photos, .category-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .service-photos { gap: 3rem; margin-bottom: 3rem; }
+  .service-photos img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: .8rem; box-shadow: 0 7px 16px rgb(15 23 42 / .14); }
+  .category-grid { gap: 2rem; }
+  .category-panel { min-width: 0; padding: 2rem; margin-bottom: 1.5rem; border-radius: 1rem; color: #fff; }
+  .category-panel h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 750; letter-spacing: -.035em; margin: 0 0 1.5rem; }
+  .category-panel ul { display: grid; gap: .75rem; list-style: none; padding: 0; margin: 0; }
+  .category-panel li { display: flex; align-items: center; gap: .75rem; line-height: 1.5; }
+  .category-panel :global(svg) { flex-shrink: 0; }
+  .category-panel a:hover { text-decoration: underline; text-underline-offset: .2em; }
+  .category-surgery { background: linear-gradient(135deg, #345ed6, #294ac0); }
+  .category-ophthalmology { color: #241809; background: linear-gradient(135deg, #f2ab27, #dd8c09); }
+  .category-orthopedics { background: linear-gradient(135deg, #137b55, #12684b); }
+  .category-tcm { background: linear-gradient(135deg, #067c77, #16675e); }
+  .category-link { display: flex; justify-content: center; align-items: center; min-height: 2.4rem; padding: .4rem 1rem; border: 1px solid var(--border); border-radius: .55rem; font-size: .875rem; font-weight: 600; box-shadow: 0 1px 2px rgb(0 0 0 / .06); }
+  .category-link:hover { background: var(--primary); color: white; }
+  .resources { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; text-align: center; }
+  .resources a { display: grid; justify-items: center; gap: .5rem; }
+  .resources a:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+  .resources strong { color: var(--primary); font-size: 1.5rem; line-height: 1.3; font-weight: 750; }
+  .resources span { color: var(--muted-foreground); }
+  .consultation-cta { background: var(--primary); color: white; text-align: center; }
+  .consultation-cta h2 { margin-bottom: 1.5rem; }
+  .consultation-cta p { max-width: 42rem; margin: 0 auto 2rem; color: #eff5fb; font-size: 1.25rem; line-height: 1.6; }
+  .home-note { padding: 2rem 1rem 4.5rem; }
+  .home-note p { max-width: 46rem; margin-inline: auto; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: .8125rem; line-height: 1.6; font-style: italic; }
+  @media (max-width: 63.99rem) { .planning-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 47.99rem) {
+    .hero { padding-block: 5rem; }
+    .hero h1 { font-size: 3rem; }
+    .hero-copy > p { font-size: 1.25rem; }
+    .home-section { padding-block: 5rem; }
+    .section-intro h2, .consultation-cta h2 { font-size: 2.25rem; }
+    .planning-grid, .service-photos, .category-grid { grid-template-columns: 1fr; }
+    .service-photos { gap: 1.5rem; }
+    .resources { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 39.99rem) {
+    .hero-actions { flex-direction: column; }
+    .hero-actions .site-button { min-height: 2.75rem; }
+    .category-link { min-height: 2.75rem; }
+  }
+</style>

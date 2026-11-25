@@ -1,0 +1,13 @@
+---
+import InformationPage from "../features/information/InformationPage.astro";
+---
+<InformationPage title="Page not found" summary="This address doesn’t lead to a page in China Medical Guide. You can find a treatment in the service directory or return to the home page.">
+  <div class="info-section info-wrap">
+    <a class="site-button" href="/services">Browse services</a>
+    <a class="return-home" href="/">Return home</a>
+  </div>
+</InformationPage>
+
+<style>
+  .return-home { margin-inline-start: 1.25rem; color: var(--primary); text-decoration: underline; }
+</style>

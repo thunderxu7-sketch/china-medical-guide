@@ -2,7 +2,9 @@
 
 面向海外访客的英文赴华就医信息站。访客可以查看服务、估算费用与在华停留时间，再把意向项目发给接待团队。网站结构参考 [CNDocTeam](https://cndocteam.com/)。
 
-仓库目前提供可运行的 Astro 首页、14 个服务标识和咨询接口类型。首版交付范围为 26 个页面和 1 个同域邮件接口。静态页面从仓库内容生成，团队通过邮箱接收咨询。项目、医生和费用数据使用经运营方确认的资料。
+网站包含 26 个内容页面和一个同域咨询接口，覆盖 14 项服务。Astro 生成静态 HTML，Cloudflare Pages Functions 通过 Resend 将咨询发到接待邮箱，运行时无需数据库。首页采用为本项目制作的医院场景配图，详见[图片说明](docs/site-imagery.md)。
+
+浏览器中的首页截图分为[桌面版（1440 × 900）](docs/preview/home-desktop.jpg)和[手机版（390 × 844）](docs/preview/home-mobile.jpg)。
 
 ## 本地启动
 
@@ -13,11 +15,25 @@ npm ci
 npm run dev
 ```
 
-`npm run check` 检查类型，`npm run build` 生成静态站点到 `dist/`，`npm run preview` 预览构建结果。开发首页可以直接运行。需要接入联系方式时，参见 [.env.example](.env.example)。
+运行自动化测试、类型检查和生产构建。
+
+```sh
+npm test
+npm run check
+npm run build
+```
+
+`npm run preview` 可预览静态页面。要在本机同时运行咨询接口，在构建后从仓库根目录执行以下命令。
+
+```sh
+npx wrangler@4.168.0 pages dev dist --compatibility-date=2026-01-01
+```
+
+正式接收邮件需设置 `INQUIRY_FROM`、`INQUIRY_TO` 和 `MAIL_API_KEY`。本地联调通过 `.dev.vars` 读取，线上使用 Pages 运行时配置。要启用 WhatsApp，请在构建时提供自己的 `PUBLIC_WHATSAPP_NUMBER`。有正式域名后，在构建环境中设置 `SITE_URL` 以生成规范链接。详见[邮件配置](docs/consultation-mail.md)和[变量示例](.env.example)。
 
 ## 可独立认领的模块
 
-每个模块都可以从 `main` 单独建分支。各工作单列出文件归属、输入、产出和验收方式。[GitHub Issues](https://github.com/thunderxu7-sketch/china-medical-guide/issues?q=is%3Aissue%20label%3Amodule) 用于认领和跟踪进度，[公共约定](docs/contracts.md) 定义跨模块共用的页面路径、字段和响应。
+各工作单列出文件归属、输入、产出和验收方式，可独立建分支维护。[GitHub Issues](https://github.com/thunderxu7-sketch/china-medical-guide/issues?q=is%3Aissue%20label%3Amodule) 记录模块进度，[公共约定](docs/contracts.md) 定义页面路径、数据和接口响应。
 
 | Issue | 工作单 | 交付范围 | 独立验收方式 |
 | --- | --- | --- | --- |
@@ -30,9 +46,9 @@ npm run dev
 
 ## 合并后验收
 
-- 构建产物包含 26 个计划内页面，列表、导航和详情链接均可直接访问及刷新。
+- 构建产物包含 26 个业务页面和一个 404 错误页，列表、导航和详情链接均可直接访问及刷新。
 - 同一项目在目录、详情和 FAQ 展示相同的报价与计价单位，咨询选择器覆盖目录中的全部 14 项。
-- 从白内障详情页打开咨询表单会预选该项目。使用测试资料向项目方指定的测试邮箱提交一条咨询，核对项目名称、回复地址和留言。
+- 从白内障详情页打开咨询表单会预选该项目。自动化测试使用模拟邮件服务覆盖接收、拒绝、超时与重试。接入运营邮箱后，在预览环境用测试资料核对真实收件和回复地址。
 - 在手机和桌面上完成相同流程，检查导航、键盘操作和 WhatsApp 按钮是否挡住表单或页脚链接。
 
-网站文案、医生资料、图片和收件信息由实际运营方提供。演示资料只用于本地开发与验收。
+尚无运营方报价时，服务页注明公开参考价格的来源、单位和核对日期。医生目录提供两个专科指南，已获发布许可的资料可加入相应页面。患者故事只展示获准发布的内容。正式对外接待前，由运营方确认收件邮箱、政策中的主体和隐私联系方式，以及邮件保留期限。

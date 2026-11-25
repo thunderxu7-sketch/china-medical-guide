@@ -1,0 +1,34 @@
+---
+import InformationPage from "../features/information/InformationPage.astro";
+---
+<InformationPage title="Privacy Policy" summary="How China Medical Guide handles consultation enquiries, contact details and email replies.">
+  <article class="info-narrow info-policy">
+    <aside><strong>Draft for operator review.</strong> This notice describes the current form and email delivery process. The operator’s legal name, privacy contact and retention schedule are pending confirmation.</aside>
+
+    <section>
+      <h2>What the form collects</h2>
+      <p>The form asks for your name, email address, telephone number, country and the service you are interested in. You can add a short message about your enquiry. Share only the details the team needs to respond. Ask the receiving clinic for a suitable channel before sharing medical records or identity documents.</p>
+    </section>
+
+    <section>
+      <h2>How your enquiry is delivered</h2>
+      <p>When you submit the form, the site sends these fields to its consultation endpoint. It checks the required details and uses Resend to deliver the enquiry to the team’s configured inbox. Your email address is set as the reply address so the team can answer you.</p>
+      <p>The site displays a success message when the email service accepts the request. If sending fails, the form keeps your entries available for retry while you remain on the page. <a href="https://resend.com/legal/privacy-policy">Resend privacy policy</a></p>
+    </section>
+
+    <section>
+      <h2>Where information may remain</h2>
+      <p>The consultation endpoint has no patient or enquiry database. The message and any later correspondence may remain in the receiving mailbox and in the systems used to host the site and deliver email, subject to each service’s settings. The project’s form handler does not log message contents.</p>
+    </section>
+
+    <section>
+      <h2>Optional contact links</h2>
+      <p>If a WhatsApp contact is available, opening that link takes you to WhatsApp. You choose what to send there. External price references, hospital directories and consular resources also open services operated by other organisations.</p>
+    </section>
+
+    <section>
+      <h2>Questions about your information</h2>
+      <p>Reply to any email you have received from the team to ask about an enquiry, correct contact details or request deletion. If you have no email thread, use the consultation form and include the date of the original enquiry so it can be located. <a href="/consultation">Contact the team</a></p>
+    </section>
+  </article>
+</InformationPage>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { patientStories } from "../features/stories/data";
+import StoryCollection from "../features/stories/StoryCollection.astro";
+import "../features/specialists/people.css";
+
+const guides = [
+  { title: "Services", detail: "Explore treatment options", href: "/services" },
+  { title: "Specialists", detail: "Prepare for an appointment", href: "/doctors" },
+  { title: "Travel", detail: "Plan your stay", href: "/travel" },
+  { title: "FAQ", detail: "Check practical details", href: "/faq" },
+];
+---
+<BaseLayout title="Patient Stories | China Medical Guide" description="Read patient accounts approved for publication, and find practical guides to planning a visit to China.">
+  <section class="people-hero">
+    <div class="people-container">
+      <h1>Patient Stories &amp; Experiences</h1>
+      <p>Patient accounts are shared here with their authors’ permission. Explore guides to choosing a service, arranging travel and preparing for your own consultation.</p>
+    </div>
+  </section>
+  <nav class="people-directory-nav" aria-label="Patient planning guides">
+    <ul class="people-container">
+      {guides.map((guide) => <li><a href={guide.href}><strong>{guide.title}</strong><span>{guide.detail}</span></a></li>)}
+    </ul>
+  </nav>
+  <StoryCollection stories={patientStories} />
+  <section class="people-band people-bottom">
+    <div class="people-container">
+      <h2 class="people-section-title">Have a Question About Your Visit?</h2>
+      <p>Ask about a specific service or about the arrangements for your trip.</p>
+      <a class="site-button" href="/consultation">Request a consultation</a>
+    </div>
+  </section>
+</BaseLayout>
