@@ -1,3 +1,5 @@
+export const emailEnabled = import.meta.env.PUBLIC_CONSULTATION_ENABLED !== "false";
+
 /** Build a chat link only when the site operator has supplied an international number. */
 export function getWhatsAppUrl(value: string | undefined): string | undefined {
   const number = value?.trim();

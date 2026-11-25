@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../../lib/site-url";
 import SiteIcon from "./SiteIcon.astro";
 interface Props { whatsAppUrl?: string; }
 const { whatsAppUrl } = Astro.props;
@@ -14,32 +15,32 @@ const year = new Date().getUTCFullYear();
       <nav aria-label="Quick links">
         <h2>Quick Links</h2>
         <ul>
-          <li><a href="/services">Medical services</a></li>
-          <li><a href="/about">About the guide</a></li>
-          <li><a href="/consultation">Request a consultation</a></li>
+          <li><a href={pageHref("/services")}>Medical services</a></li>
+          <li><a href={pageHref("/about")}>About the guide</a></li>
+          <li><a href={pageHref("/consultation")}>Request a consultation</a></li>
         </ul>
       </nav>
       <nav aria-label="Featured services">
         <h2>Services</h2>
         <ul>
-          <li><a href="/services/hip-replacement">Orthopedic surgery</a></li>
-          <li><a href="/services/cataract-treatment">Eye care</a></li>
-          <li><a href="/services/cardiac-surgery">Cardiac surgery</a></li>
-          <li><a href="/services/remote-consultation">Remote TCM consultation</a></li>
+          <li><a href={pageHref("/services/hip-replacement")}>Orthopedic surgery</a></li>
+          <li><a href={pageHref("/services/cataract-treatment")}>Eye care</a></li>
+          <li><a href={pageHref("/services/cardiac-surgery")}>Cardiac surgery</a></li>
+          <li><a href={pageHref("/services/remote-consultation")}>Remote TCM consultation</a></li>
         </ul>
       </nav>
       <nav aria-label="Patient support">
         <h2>Patient Support</h2>
         <ul class="support-list">
-          <li><SiteIcon name="mail" size={17} /><a href="/consultation">Contact the team</a></li>
-          <li><SiteIcon name="map" size={17} /><a href="/travel">Travel &amp; support</a></li>
+          <li><SiteIcon name="mail" size={17} /><a href={pageHref("/consultation")}>Contact the team</a></li>
+          <li><SiteIcon name="map" size={17} /><a href={pageHref("/travel")}>Travel &amp; support</a></li>
           {whatsAppUrl && <li><SiteIcon name="message" size={17} /><a href={whatsAppUrl} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></li>}
         </ul>
       </nav>
     </div>
     <div class="footer-legal">
       <p>© {year} China Medical Guide.</p>
-      <nav aria-label="Policies"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></nav>
+      <nav aria-label="Policies"><a href={pageHref("/privacy")}>Privacy Policy</a><a href={pageHref("/terms")}>Terms of Service</a></nav>
     </div>
   </div>
 </footer>

@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../../lib/site-url";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { specialties } from "../../features/specialists/data";
 import PeopleIcon from "../../features/specialists/PeopleIcon.astro";
@@ -47,7 +48,7 @@ const steps = [
                 <li><PeopleIcon name="check" size={15} />{services.find((entry) => entry.slug === slug)?.name}</li>
               ))}
             </ul>
-            <a class="people-card-link" href={`/doctors/${specialty.slug}`}>View {specialty.slug === "orthopedic" ? "orthopedic" : "eye care"} guide</a>
+            <a class="people-card-link" href={pageHref(`/doctors/${specialty.slug}`)}>View {specialty.slug === "orthopedic" ? "orthopedic" : "eye care"} guide</a>
           </article>
         ))}
       </div>
@@ -57,7 +58,7 @@ const steps = [
     <div class="people-container">
       <h2>Planning a Specialist Visit?</h2>
       <p>Tell the team which service you are considering and what you would like the clinic to confirm.</p>
-      <a class="site-button site-button--secondary" href="/consultation">Request a consultation</a>
+      <a class="site-button site-button--secondary" href={pageHref("/consultation")}>Request a consultation</a>
     </div>
   </section>
 </BaseLayout>

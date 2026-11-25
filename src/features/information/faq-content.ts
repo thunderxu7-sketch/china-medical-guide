@@ -84,7 +84,7 @@ export function getFaqGroups(price: PriceDisplay): QuestionGroup[] {
         {
           question: "Can I enquire about traditional Chinese medicine remotely?",
           answer:
-            "Yes. Select Remote Consultation on the enquiry form and include your time zone and preferred language. The provider can confirm availability for your location.",
+            "Review the remote consultation guide and ask your provider about availability for your location, time zone and preferred language.",
           links: [{ text: "Remote consultation", href: "/services/remote-consultation" }],
         },
       ],
@@ -138,8 +138,8 @@ export function getFaqGroups(price: PriceDisplay): QuestionGroup[] {
         {
           question: "How do I start an enquiry?",
           answer:
-            "Select a service, enter your contact details and tell the team what you would like to know. They can use your email address to respond.",
-          links: [{ text: "Open the consultation form", href: "/consultation" }],
+            "Choose a service and open the consultation page to see the available options. Have your main questions about arrangements or costs ready for the clinic.",
+          links: [{ text: "View consultation options", href: "/consultation" }],
         },
         {
           question: "How can I arrange language support?",
@@ -149,7 +149,7 @@ export function getFaqGroups(price: PriceDisplay): QuestionGroup[] {
         {
           question: "What happens to the details I send?",
           answer:
-            "The consultation form passes your enquiry to the guide’s email service for delivery to the team. Use the message field for brief planning questions and agree a suitable channel with the clinic for detailed records.",
+            "The privacy policy describes the information this site handles and the contact options it offers. Ask the clinic for an appropriate channel before sharing detailed records.",
           links: [{ text: "Read the privacy policy", href: "/privacy" }],
         },
       ],

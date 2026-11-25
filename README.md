@@ -2,6 +2,10 @@
 
 面向海外访客的英文赴华就医信息站。访客可以查看服务、估算费用与在华停留时间，再把意向项目发给接待团队。网站结构参考 [CNDocTeam](https://cndocteam.com/)。
 
+[访问 GitHub Pages 网站](https://thunderxu7-sketch.github.io/china-medical-guide/)。公开站提供完整的服务目录、行程和咨询准备指南。GitHub Pages 托管静态文件，公开版通过项目选择器引导访客查看服务详情，不收集个人联系方式。带邮件表单的版本可用下方的 Pages Functions 配置运行。
+
+推送到 `main` 后，GitHub Actions 会测试、构建并发布 `dist/`。工作流从 GitHub Pages 配置读取域名和项目路径。可选的仓库变量 `PUBLIC_WHATSAPP_NUMBER` 用于启用运营方自己的联系入口。
+
 网站包含 26 个内容页面和一个同域咨询接口，覆盖 14 项服务。Astro 生成静态 HTML，Cloudflare Pages Functions 通过 Resend 将咨询发到接待邮箱，运行时无需数据库。首页采用为本项目制作的医院场景配图，详见[图片说明](docs/site-imagery.md)。
 
 浏览器中的首页截图分为[桌面版（1440 × 900）](docs/preview/home-desktop.jpg)和[手机版（390 × 844）](docs/preview/home-mobile.jpg)。

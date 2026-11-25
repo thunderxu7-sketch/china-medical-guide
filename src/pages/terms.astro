@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../lib/site-url";
 import InformationPage from "../features/information/InformationPage.astro";
 ---
 <InformationPage title="Terms of Service" summary="How to use the guide, request information and confirm arrangements with a provider.">
@@ -12,23 +13,23 @@ import InformationPage from "../features/information/InformationPage.astro";
 
     <section>
       <h2>Consultation requests</h2>
-      <p>Submitting an enquiry asks the team to reply about the service you select. A booking requires separate confirmation from the receiving provider. Confirm the identity of the clinician, the hospital campus, the date and the documents required before making travel arrangements.</p>
+      <p>The consultation page lists the options available for planning a visit. A booking requires separate confirmation from the receiving provider. Confirm the identity of the clinician, the hospital campus, the date and the documents required before making travel arrangements.</p>
     </section>
 
     <section>
       <h2>Prices and payment</h2>
       <p>Some service pages show a published third-party reference. The page identifies its source and the unit it covers. Individual costs depend on the provider’s assessment and written estimate. Ask the provider to specify the currency, what is included, the payee, the payment schedule and any cancellation or refund conditions.</p>
-      <p>The consultation form collects an enquiry. Any agreement for clinical care, payment, accommodation or transport is made separately with the relevant provider. <a href="/faq#cost-payment">Read the cost and payment questions</a></p>
+      <p>Any agreement for clinical care, payment, accommodation or transport is made separately with the relevant provider. <a href={pageHref("/faq#cost-payment")}>Read the cost and payment questions</a></p>
     </section>
 
     <section>
       <h2>Travel and follow-up arrangements</h2>
-      <p>Confirm entry requirements with the relevant authorities and appointment dates with the receiving clinic. Discuss timing for return travel, records and follow-up appointments with the treating team. <a href="/travel">Travel and support guide</a></p>
+      <p>Confirm entry requirements with the relevant authorities and appointment dates with the receiving clinic. Discuss timing for return travel, records and follow-up appointments with the treating team. <a href={pageHref("/travel")}>Travel and support guide</a></p>
     </section>
 
     <section>
       <h2>Contact and privacy</h2>
-      <p>Use the consultation form to ask for clarification about a listing or estimate. The privacy notice explains what information the form requests and how the team receives it. <a href="/privacy">Read the privacy policy</a></p>
+      <p>Consultation and contact options are listed on the <a href={pageHref("/consultation")}>consultation page</a>. The privacy notice describes how this site processes information. <a href={pageHref("/privacy")}>Read the privacy policy</a></p>
     </section>
   </article>
 </InformationPage>

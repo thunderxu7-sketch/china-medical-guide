@@ -1,7 +1,9 @@
 ---
+import { pageHref, publicAsset } from "../lib/site-url";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteIcon from "../components/site/SiteIcon.astro";
 import { services } from "../data/services";
+import { emailEnabled } from "../components/site/contact";
 
 const planning = [
   { icon: "cost", title: "Understand the Costs", text: "Check how a service is priced and which expenses to ask about before you make plans." },
@@ -22,15 +24,15 @@ const categories = [
   description="Explore medical services in China, compare treatment and travel considerations, and ask about your options before arranging a visit."
 >
   <section class="hero" aria-labelledby="home-heading">
-    <img class="hero-image" src="/media/site/hospital-hero.webp" alt="" width="1920" height="817" fetchpriority="high" />
+    <img class="hero-image" src={publicAsset("/media/site/hospital-hero.webp")} alt="" width="1920" height="817" fetchpriority="high" />
     <div class="hero-filter" aria-hidden="true"></div>
     <div class="site-container hero-inner">
       <div class="hero-copy">
         <h1 id="home-heading"><span>Plan Your Medical Care</span> <span>and Travel to China</span></h1>
         <p>Explore surgery, eye care, orthopedics and traditional Chinese medicine in China. Compare published cost estimates, plan how long to stay, and prepare questions for your specialist before requesting a consultation.</p>
         <div class="hero-actions">
-          <a href="/consultation" class="site-button site-button--secondary">Start Your Consultation</a>
-          <a href="/services" class="site-button hero-outline">Explore Services</a>
+          <a href={pageHref("/consultation")} class="site-button site-button--secondary">{emailEnabled ? "Start Your Consultation" : "Plan Your Consultation"}</a>
+          <a href={pageHref("/services")} class="site-button hero-outline">Explore Services</a>
         </div>
       </div>
     </div>
@@ -61,8 +63,8 @@ const categories = [
         <p>Browse treatment and consultation options across four areas of care.</p>
       </div>
       <div class="service-photos">
-        <img src="/media/site/hospital-facility.webp" width="1080" height="720" loading="lazy" decoding="async" alt="A sunlit hospital reception and waiting area" />
-        <img src="/media/site/patient-recovery.webp" width="1080" height="720" loading="lazy" decoding="async" alt="A woman sitting beside a patient as they talk" />
+        <img src={publicAsset("/media/site/hospital-facility.webp")} width="1080" height="720" loading="lazy" decoding="async" alt="A sunlit hospital reception and waiting area" />
+        <img src={publicAsset("/media/site/patient-recovery.webp")} width="1080" height="720" loading="lazy" decoding="async" alt="A woman sitting beside a patient as they talk" />
       </div>
       <div class="category-grid">
         {categories.map((category) => (
@@ -71,11 +73,11 @@ const categories = [
               <h3>{category.label}</h3>
               <ul>
                 {services.filter((service) => service.category === category.key).map((service) => (
-                  <li><SiteIcon name="check" size={20} /><a href={`/services/${service.slug}`}>{service.name}</a></li>
+                  <li><SiteIcon name="check" size={20} /><a href={pageHref(`/services/${service.slug}`)}>{service.name}</a></li>
                 ))}
               </ul>
             </div>
-            <a class="category-link" href={`/services#${category.key}`} aria-label={`Learn more about ${category.label.toLowerCase()}`}>Learn More</a>
+            <a class="category-link" href={pageHref(`/services#${category.key}`)} aria-label={`Learn more about ${category.label.toLowerCase()}`}>Learn More</a>
           </article>
         ))}
       </div>
@@ -84,18 +86,18 @@ const categories = [
 
   <nav class="home-section resource-strip" aria-label="Browse patient resources">
     <div class="site-container resources">
-      <a href="/services"><strong>{services.length}</strong><span>Services to explore</span></a>
-      <a href="/doctors"><strong>2</strong><span>Specialist areas</span></a>
-      <a href="/travel"><strong>Travel</strong><span>Planning and support</span></a>
-      <a href="/faq"><strong>FAQ</strong><span>Common questions</span></a>
+      <a href={pageHref("/services")}><strong>{services.length}</strong><span>Services to explore</span></a>
+      <a href={pageHref("/doctors")}><strong>2</strong><span>Specialist areas</span></a>
+      <a href={pageHref("/travel")}><strong>Travel</strong><span>Planning and support</span></a>
+      <a href={pageHref("/faq")}><strong>FAQ</strong><span>Common questions</span></a>
     </div>
   </nav>
 
   <section class="home-section consultation-cta" aria-labelledby="consult-heading">
     <div class="site-container">
       <h2 id="consult-heading">Ready to Plan Your Visit?</h2>
-      <p>Tell us which service you are interested in and what you would like to know about the next steps.</p>
-      <a class="site-button site-button--secondary" href="/consultation">Request Your Consultation</a>
+      <p>Choose the service you are interested in and prepare the questions you would like to ask your clinic.</p>
+      <a class="site-button site-button--secondary" href={pageHref("/consultation")}>{emailEnabled ? "Request Your Consultation" : "Plan Your Consultation"}</a>
     </div>
   </section>
   <aside class="home-note">

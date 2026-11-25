@@ -1,12 +1,15 @@
 ---
+import { pageHref } from "../lib/site-url";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getWhatsAppUrl } from "../components/site/contact";
+import { emailEnabled, getWhatsAppUrl } from "../components/site/contact";
 import { consultationEndpoint } from "../contracts/consultations";
+import ConsultationGuide from "../features/consultation-form/ConsultationGuide.astro";
 import { services } from "../data/services";
 import { countries } from "../features/consultation-form/countries";
 import "../features/consultation-form/consultation.css";
 
 const whatsAppUrl = getWhatsAppUrl(import.meta.env.PUBLIC_WHATSAPP_NUMBER);
+const title = emailEnabled ? "Request a Free Consultation" : "Plan Your Consultation";
 const categories = {
   surgery: "Surgical procedures",
   ophthalmology: "Ophthalmology",
@@ -16,26 +19,28 @@ const categories = {
 ---
 
 <BaseLayout
-  title="Request a Free Consultation | China Medical Guide"
-  description="Choose a service and contact China Medical Guide with questions about treatment costs, appointments and travel to China."
+  title={`${title} | China Medical Guide`}
+  description="Choose a service and prepare your questions about treatment costs, appointments and travel to China."
 >
   <div class="consult-page">
     <section class="consult-hero" aria-labelledby="consult-title">
       <div class="consult-width">
-        <h1 id="consult-title">Request a Free Consultation</h1>
-        <p class="consult-intro">Tell us which service you’re considering and ask about pricing, appointment options, or travel arrangements.</p>
+        <h1 id="consult-title">{title}</h1>
+        <p class="consult-intro">{emailEnabled
+          ? "Tell us which service you’re considering and ask about pricing, appointment options, or travel arrangements."
+          : "Find the information you need for a conversation with your clinic, from treatment estimates to follow-up visits."}</p>
         <p class="consult-shortcut">
           {whatsAppUrl
             ? <>Prefer to chat? <a href={whatsAppUrl}>Contact us on WhatsApp</a> about your visit.</>
-            : <>Planning your visit? <a href="/travel">Explore travel support</a> before sending your inquiry.</>}
+            : <>Planning your visit? <a href={pageHref("/travel")}>Explore travel support</a>.</>}
         </p>
       </div>
     </section>
 
     <div class="consult-width consult-content">
       <section class="consult-card consult-form-card" aria-labelledby="form-heading">
-        <h2 id="form-heading">Consultation Form</h2>
-        <form id="consultation-form" action={consultationEndpoint} method="post" aria-labelledby="form-heading">
+        <h2 id="form-heading">{emailEnabled ? "Consultation Form" : "Service guides"}</h2>
+        {emailEnabled ? <form id="consultation-form" action={consultationEndpoint} method="post" aria-labelledby="form-heading">
           <fieldset>
             <div class="consult-field">
               <label for="consult-name">Full name <span aria-hidden="true">*</span></label>
@@ -77,17 +82,17 @@ const categories = {
               <label for="consult-message">Additional information</label>
               <textarea id="consult-message" name="message" rows="2" maxlength="4000" placeholder="What would you like to know about your visit?"></textarea>
             </div>
-            <p class="consult-privacy">We’ll use these details to reply to your inquiry. <a href="/privacy">Privacy policy</a></p>
+            <p class="consult-privacy">We’ll use these details to reply to your inquiry. <a href={pageHref("/privacy")}>Privacy policy</a></p>
             <button class="consult-submit" type="submit" disabled>Send consultation request</button>
           </fieldset>
           <noscript><p class="consult-notice">Enable JavaScript to send a consultation request.</p></noscript>
           <p class="consult-feedback" data-feedback role="status" aria-live="polite" aria-atomic="true"></p>
           {whatsAppUrl && <p class="consult-alternate" data-alternate-contact hidden><a href={whatsAppUrl}>Contact us on WhatsApp</a></p>}
-        </form>
+        </form> : <ConsultationGuide />}
       </section>
 
       <aside class="consult-card consult-contacts" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Quick Contact</h2>
+        <h2 id="contact-heading">{emailEnabled || whatsAppUrl ? "Quick Contact" : "Plan your visit"}</h2>
         <div class="consult-contacts-list">
           {whatsAppUrl && (
             <div class="consult-contact">
@@ -97,12 +102,14 @@ const categories = {
           )}
           <div class="consult-contact">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m3 6 9 6 9-6" /></svg>
-            <div><h3>Email inquiry</h3><a href="#consult-name">Use the consultation form</a></div>
+            {emailEnabled
+              ? <div><h3>Email inquiry</h3><a href="#consult-name">Use the consultation form</a></div>
+              : <div><h3>Travel arrangements</h3><a href={pageHref("/travel")}>Read the travel guide</a></div>}
           </div>
           {!whatsAppUrl && (
             <div class="consult-contact">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M9.4 9a2.7 2.7 0 1 1 4.2 2.3c-1 .6-1.6 1.1-1.6 2.7m0 2.5h.01" stroke-linecap="round" /></svg>
-              <div><h3>Common questions</h3><a href="/faq">Visit the FAQ</a></div>
+              <div><h3>Common questions</h3><a href={pageHref("/faq")}>Visit the FAQ</a></div>
             </div>
           )}
         </div>
@@ -112,5 +119,7 @@ const categories = {
 </BaseLayout>
 
 <script>
-  import "../features/consultation-form/form";
+  if (import.meta.env.PUBLIC_CONSULTATION_ENABLED !== "false") {
+    void import("../features/consultation-form/form");
+  }
 </script>

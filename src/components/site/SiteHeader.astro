@@ -1,5 +1,7 @@
 ---
+import { pageHref, routePath } from "../../lib/site-url";
 import SiteIcon from "./SiteIcon.astro";
+import { emailEnabled } from "./contact";
 
 const links = [
   { href: "/", label: "Home" },
@@ -10,7 +12,8 @@ const links = [
   { href: "/about", label: "About Us" },
   { href: "/travel", label: "Travel & Support" },
 ];
-const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const currentPath = routePath(Astro.url.pathname);
+const consultationLabel = emailEnabled ? "Get Consultation" : "Consultation Guide";
 function currentPage(href: string) {
   if (currentPath === href) return "page";
   return href !== "/" && currentPath.startsWith(href + "/") ? "location" : undefined;
@@ -18,15 +21,15 @@ function currentPage(href: string) {
 ---
 <header class="masthead">
   <div class="site-container masthead-inner">
-    <a class="brand" href="/" aria-label="China Medical Guide home">
+    <a class="brand" href={pageHref("/")} aria-label="China Medical Guide home">
       <span class="brand-mark" aria-hidden="true"><span>+</span></span>
       <span class="brand-name">China Medical Guide</span>
     </a>
 
     <nav class="desktop-nav" aria-label="Main navigation">
-      {links.map(({ href, label }) => <a href={href} aria-current={currentPage(href)}>{label}</a>)}
+      {links.map(({ href, label }) => <a href={pageHref(href)} aria-current={currentPage(href)}>{label}</a>)}
     </nav>
-    <a class="site-button header-cta" href="/consultation" aria-current={currentPage("/consultation")}>Get Consultation</a>
+    <a class="site-button header-cta" href={pageHref("/consultation")} aria-current={currentPage("/consultation")}>{consultationLabel}</a>
 
     <details class="mobile-menu" data-site-menu>
       <summary>
@@ -34,8 +37,8 @@ function currentPage(href: string) {
         <span class="when-open"><SiteIcon name="close" /><span class="sr-only">Close navigation</span></span>
       </summary>
       <nav aria-label="Mobile navigation" class="mobile-panel">
-        {links.map(({ href, label }) => <a href={href} aria-current={currentPage(href)}>{label}</a>)}
-        <a class="site-button" href="/consultation" aria-current={currentPage("/consultation")}>Get Consultation</a>
+        {links.map(({ href, label }) => <a href={pageHref(href)} aria-current={currentPage(href)}>{label}</a>)}
+        <a class="site-button" href={pageHref("/consultation")} aria-current={currentPage("/consultation")}>{consultationLabel}</a>
       </nav>
     </details>
   </div>

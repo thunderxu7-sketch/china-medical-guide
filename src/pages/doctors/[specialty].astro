@@ -1,4 +1,5 @@
 ---
+import { pageHref } from "../../lib/site-url";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { specialties, type Specialty } from "../../features/specialists/data";
 import PeopleIcon from "../../features/specialists/PeopleIcon.astro";
@@ -16,7 +17,7 @@ const title = clinician?.name ?? specialty.title + " Guide";
 <BaseLayout title={title + " | China Medical Guide"} description={specialty.summary}>
   <section class="people-hero">
     <div class="people-container">
-      <a class="people-back" href="/doctors">Back to specialists</a>
+      <a class="people-back" href={pageHref("/doctors")}>Back to specialists</a>
       <div class="people-profile">
         <span class="people-avatar"><PeopleIcon name="person" size={58} /></span>
         <div>
@@ -26,10 +27,10 @@ const title = clinician?.name ?? specialty.title + " Guide";
             <div class="people-clinician">
               {clinician.role && <p>{clinician.role}</p>}
               {clinician.institution && <p>{clinician.institution}</p>}
-              <a class="people-text-link" href={clinician.source.url}>{clinician.source.label}</a>
+              <a class="people-text-link" href={pageHref(clinician.source.url)}>{clinician.source.label}</a>
             </div>
           ) : <p>{specialty.summary}</p>}
-          <a class="site-button" href="/consultation">Request a consultation</a>
+          <a class="site-button" href={pageHref("/consultation")}>Request a consultation</a>
         </div>
       </div>
     </div>
@@ -61,13 +62,13 @@ const title = clinician?.name ?? specialty.title + " Guide";
       <div>
         <h2 class="people-heading">Related Services</h2>
         <ul class="people-tags">
-          {specialty.services.map((slug) => <li><a href={`/services/${slug}`}>{services.find((entry) => entry.slug === slug)?.name}</a></li>)}
+          {specialty.services.map((slug) => <li><a href={pageHref(`/services/${slug}`)}>{services.find((entry) => entry.slug === slug)?.name}</a></li>)}
         </ul>
       </div>
       <div>
         <h2 class="people-heading">Planning the Journey</h2>
         <p class="people-copy">{specialty.travel}</p>
-        <a class="people-text-link" href="/travel">Explore travel support</a>
+        <a class="people-text-link" href={pageHref("/travel")}>Explore travel support</a>
       </div>
     </div>
   </section>
@@ -75,7 +76,7 @@ const title = clinician?.name ?? specialty.title + " Guide";
     <div class="people-container">
       <h2>Ask About Your Appointment</h2>
       <p>Contact the team to ask which clinician and hospital would review your request.</p>
-      <a class="site-button site-button--secondary" href="/consultation">Request a consultation</a>
+      <a class="site-button site-button--secondary" href={pageHref("/consultation")}>Request a consultation</a>
     </div>
   </section>
 </BaseLayout>
