@@ -1,0 +1,32 @@
+---
+import PeopleIcon from "../specialists/PeopleIcon.astro";
+import type { PatientStory } from "./data";
+
+interface Props { stories: PatientStory[]; }
+const approved = Astro.props.stories.filter((story) => story.approvedForPublication);
+---
+<section class="people-band people-band-muted" aria-label="Published patient accounts">
+  <div class="people-container">
+    {approved.length ? (
+      <div class="people-story-grid">
+        {approved.map((story) => (
+          <article class="people-card people-story">
+            <header>
+              <span class="people-avatar-sm"><PeopleIcon name="person" /></span>
+              <div><h2>{story.title}</h2><p>{story.patientDisplayName}{story.visitLabel && <> · {story.visitLabel}</>}</p></div>
+            </header>
+            <blockquote>{story.account}</blockquote>
+            <footer>{story.source.publicUrl ? <a href={story.source.publicUrl}>{story.source.label}</a> : story.source.label}</footer>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="people-card people-empty">
+        <span class="people-avatar-sm"><PeopleIcon name="book" /></span>
+        <h2>No published stories yet</h2>
+        <p>Patient accounts appear here when their authors give permission to share them. In the meantime, you can browse the specialty guides to prepare questions for your own visit.</p>
+        <a class="people-text-link" href="/doctors">Explore the specialty guides</a>
+      </div>
+    )}
+  </div>
+</section>
