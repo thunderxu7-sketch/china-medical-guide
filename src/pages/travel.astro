@@ -1,0 +1,171 @@
+---
+import InformationPage from "../features/information/InformationPage.astro";
+import ContactSection from "../features/information/ContactSection.astro";
+import InfoIcon from "../features/information/InfoIcon.astro";
+
+const arrangements = [
+  {
+    icon: "plane",
+    title: "Airport transfers",
+    body: "Ask for the meeting point and the journey time from your arrival terminal to the hospital or hotel.",
+    items: [
+      "Airport and flight number",
+      "Driver or reception contact",
+      "Space for luggage or mobility aids",
+    ],
+  },
+  {
+    icon: "people",
+    title: "A local contact",
+    body: "Save the details of someone who can confirm an appointment or help when travel plans change.",
+    items: ["Name and preferred language", "Office hours in local time", "An after-hours contact"],
+  },
+  {
+    icon: "building",
+    title: "Accommodation",
+    body: "Check the location of your appointment before choosing a hotel. Some hospitals have more than one campus.",
+    items: [
+      "Exact campus and entrance",
+      "Lift access and room facilities",
+      "Terms for changing your dates",
+    ],
+  },
+  {
+    icon: "language",
+    title: "Medical interpretation",
+    body: "Ask the hospital to confirm which appointments can be held in your language and how to book an interpreter.",
+    items: [
+      "Language and appointment time",
+      "In-person or telephone support",
+      "Interpreting fees in writing",
+    ],
+  },
+  {
+    icon: "meals",
+    title: "Meals during your stay",
+    body: "Ask the ward or hotel about meal arrangements for you and a travelling companion.",
+    items: [
+      "Dietary preferences or allergies",
+      "Meals included in hospital charges",
+      "Options outside ward hours",
+    ],
+  },
+  {
+    icon: "pin",
+    title: "Getting around",
+    body: "Keep a copy of the hospital and hotel addresses in Chinese. Plan any outings around the schedule agreed with your care team.",
+    items: [
+      "Hospital entrance and map",
+      "Accessible transport options",
+      "Travel time to follow-up visits",
+    ],
+  },
+  {
+    icon: "heart",
+    title: "Support after discharge",
+    body: "Before leaving the ward, confirm where you will stay and who to contact with questions about your recovery.",
+    items: [
+      "Discharge and follow-up contacts",
+      "Copies of prescriptions and reports",
+      "Return travel review",
+    ],
+  },
+] as const;
+
+const itinerary = [
+  [
+    "Before travel",
+    "Confirm your appointment",
+    "Request the clinic name, address, appointment time and any documents it wants to review.",
+  ],
+  [
+    "Arrival",
+    "Check in locally",
+    "Allow time to reach your accommodation and locate the correct hospital entrance.",
+  ],
+  [
+    "Clinic visit",
+    "Meet the treating team",
+    "Discuss your options, the written estimate and the schedule for any further visits.",
+  ],
+  [
+    "Hospital stay",
+    "Plan for discharge",
+    "Confirm the expected stay, visitor arrangements and instructions you will take home.",
+  ],
+  [
+    "Local stay",
+    "Attend the scheduled review",
+    "Leave time for the follow-up visit and ask when the team will review your travel plans.",
+  ],
+  [
+    "Return",
+    "Arrange the handover",
+    "Collect written reports, a contact for questions and the details of your next appointment.",
+  ],
+];
+const destinations = [
+  [
+    "Shanghai",
+    "Check which airport serves your flight and which campus will receive you. Allow for travel between them when choosing a hotel.",
+  ],
+  [
+    "Beijing",
+    "Keep the department name, hospital entrance and appointment time together. Give your driver the address supplied by the hospital.",
+  ],
+  [
+    "Guangzhou",
+    "Confirm the district and campus before you book a room. Ask whether outpatient appointments and follow-up visits take place at the same site.",
+  ],
+];
+const expenses = [
+  ["Clinical care", "Written hospital estimate"],
+  ["Accommodation", "Nightly rate × nights booked"],
+  ["Flights and transfers", "Return fare and ground transport"],
+  ["Language support", "Interpreter hours and document translation"],
+  ["Companion expenses", "Meals, room charges and local travel"],
+];
+---
+<InformationPage title="Travel & Support Services" summary="Plan your arrival, hospital visits and return home with a checklist for your stay in China.">
+  <section class="info-section" aria-label="Travel arrangements">
+    <div class="info-wrap info-grid info-travel-grid">
+      {arrangements.map((item) => (
+        <article class="info-card">
+          <InfoIcon name={item.icon} size={36} />
+          <h2>{item.title}</h2>
+          <p>{item.body}</p>
+          <ul>{item.items.map(line => <li>{line}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="info-section info-section--muted" aria-labelledby="itinerary">
+    <div class="info-narrow">
+      <h2 class="info-title" id="itinerary">Sample visit itinerary</h2>
+      <ol class="info-timeline">
+        {itinerary.map(([phase, title, detail]) => <li><strong>{phase}</strong><div><h3>{title}</h3><p>{detail}</p></div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="info-section" aria-labelledby="destinations">
+    <div class="info-wrap">
+      <h2 class="info-title" id="destinations">Planning by destination</h2>
+      <div class="info-grid info-three info-destinations">
+        {destinations.map(([city, notes]) => <article class="info-card"><h3>{city}</h3><p>{notes}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section info-section--muted" aria-labelledby="budget">
+    <div class="info-narrow">
+      <h2 class="info-title" id="budget">Build your trip budget</h2>
+      <dl class="info-budget">
+        {expenses.map(([item, basis]) => <div><dt>{item}</dt><dd>{basis}</dd></div>)}
+      </dl>
+    </div>
+  </section>
+
+  <ContactSection title="Plan your medical journey" description="Tell us which service you are considering and which part of the trip you would like help arranging." label="Ask about your trip" />
+</InformationPage>

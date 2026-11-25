@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  label: string;
+  light?: boolean;
+}
+const { title, description, label, light = false } = Astro.props;
+---
+<section class:list={["info-contact", { "info-contact--light": light }]}>
+  <div class="info-narrow">
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <a class="info-button" href="/consultation">{label}</a>
+  </div>
+</section>

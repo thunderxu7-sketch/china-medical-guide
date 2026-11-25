@@ -1,0 +1,69 @@
+---
+import InformationPage from "../features/information/InformationPage.astro";
+import InfoIcon from "../features/information/InfoIcon.astro";
+
+const topics = [
+  {
+    icon: "people",
+    title: "Specialist enquiries",
+    body: "Explore specialist profiles and prepare questions about the clinician, department and hospital that would see you.",
+  },
+  {
+    icon: "shield",
+    title: "Provider details",
+    body: "Use the guide to identify which credentials, appointment arrangements and written documents to confirm with a hospital.",
+  },
+  {
+    icon: "globe",
+    title: "Travel planning",
+    body: "Plan for language support, accommodation, airport transfers and the time you may need near the hospital.",
+  },
+  {
+    icon: "award",
+    title: "Clear estimates",
+    body: "Check the currency and unit for each service and request a written breakdown for the care you are considering.",
+  },
+] as const;
+const steps = [
+  [
+    "Find a service",
+    "Browse four service categories and compare the practical arrangements for a visit or a remote enquiry.",
+    "/services",
+    "Browse services",
+  ],
+  [
+    "Prepare your visit",
+    "Use the travel checklist to organise the details a provider or coordinator needs before you arrive.",
+    "/travel",
+    "Read the travel guide",
+  ],
+  [
+    "Ask a question",
+    "Choose a service and leave your contact details so the team can reply to your enquiry by email.",
+    "/consultation",
+    "Start a consultation",
+  ],
+];
+---
+<InformationPage centered title="About China Medical Guide" summary="China Medical Guide helps international visitors prepare for care in China. Explore services, understand how costs are presented and plan the questions to ask before arranging a visit.">
+  <section class="info-about" aria-label="What the guide covers">
+    <div class="info-wrap info-grid info-about-grid">
+      {topics.map((topic) => (
+        <article class="info-card info-about-card">
+          <span class="info-icon-disc"><InfoIcon name={topic.icon} /></span>
+          <h2>{topic.title}</h2><p>{topic.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="info-about-panel" aria-labelledby="use-the-guide">
+    <div class="info-wrap">
+      <InfoIcon name="star" size={44} />
+      <h2 class="info-title" id="use-the-guide">Before you book</h2>
+      <div class="info-grid info-three">
+        {steps.map(([title, body, href, label]) => <article><h3>{title}</h3><p>{body}</p><a href={href}>{label}</a></article>)}
+      </div>
+    </div>
+  </section>
+</InformationPage>
